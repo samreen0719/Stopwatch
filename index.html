@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stop Watch</title>
+  <style>
+    body {
+      display: flex;
+      margin: 0;
+      height: 100vh;
+      background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e") no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+    }
+
+    .windowshell {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .outershell {
+      border-radius: 15px;
+      background-color: rgba(255, 255, 255, 0.85); /* transparent white */
+      width: 80%;
+      max-width: 500px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .button {
+      margin: 15px;
+      color: white;
+      background-color: blueviolet;
+      border-radius: 10px;
+      padding: 15px 25px;
+      font-size: larger;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      background-color: darkviolet;
+    }
+
+    .milli {
+      font-size: large;
+    }
+
+    .timerscreen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .timer {
+      padding: 10px;
+    }
+
+    label {
+      font-variant: small-caps;
+      font-family: fantasy;
+      font-size: xx-large;
+    }
+  </style>
+</head>
+<body>
+  <div class="windowshell">
+    <div class="outershell">
+      <div class="timerscreen">
+        <label>Stop Watch</label>
+        <div>
+          <label class="timer" id="minutes">00</label>
+          <span class="timer">min</span> :
+          <label class="timer" id="seconds">00</label>
+          <span class="timer">sec</span> :
+          <label class="timer milli" id="milliseconds">00</label>
+          <span class="timer milli">ms</span>
+        </div>
+
+        <div class="buttonholder">
+          <button class="reset button" onclick="startTimer()">Start</button>
+          <button class="reset button" onclick="stopTimer()">Stop</button>
+          <button class="reset button" onclick="resetTimer()">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let intervalVariable;
+    let timeElapsed = 0; // in ms
+
+    function startTimer() {
+      if (!intervalVariable) {
+        intervalVariable = setInterval(updateTime, 10);
+      }
+    }
+
+    function stopTimer() {
+      clearInterval(intervalVariable);
+      intervalVariable = null;
+    }
+
+    function resetTimer() {
+      stopTimer();
+      timeElapsed = 0;
+      updateDisplay();
+    }
+
+    function updateTime() {
+      timeElapsed += 10;
+      updateDisplay();
+    }
+
+    function updateDisplay() {
+      let minutesLabel = document.getElementById("minutes");
+      let secondsLabel = document.getElementById("seconds");
+      let millisecondsLabel = document.getElementById("milliseconds");
+
+      let totalSeconds = Math.floor(timeElapsed / 1000);
+      let minutes = Math.floor(totalSeconds / 60);
+      let seconds = totalSeconds % 60;
+      let milliseconds = Math.floor((timeElapsed % 1000) / 10);
+
+      minutesLabel.innerHTML = minutes.toString().padStart(2, "0");
+      secondsLabel.innerHTML = seconds.toString().padStart(2, "0");
+      millisecondsLabel.innerHTML = milliseconds.toString().padStart(2, "0");
+
+      minutesLabel.style.color = "blue";
+      secondsLabel.style.color = "green";
+      millisecondsLabel.style.color = "red";
+    }
+  </script>
+</body>
+</html>
