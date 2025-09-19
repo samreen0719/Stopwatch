@@ -20,4 +20,4 @@ A simple and stylish **Stopwatch app** created using **HTML, CSS, and JavaScript
 ## 📂 Project Setup
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-username/stopwatch-app.git
+   git clone [https://github.com/samreen0719/Stopwatch.git]
